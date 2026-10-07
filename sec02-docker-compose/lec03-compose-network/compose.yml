@@ -1,0 +1,8 @@
+services:
+  web-app:
+    image: nginx:latest
+  util:
+    image: vinsdocker/util
+    depends_on:
+      - web-app
+    command: ["curl", "web-app"]

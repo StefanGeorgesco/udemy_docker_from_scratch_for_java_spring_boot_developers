@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: product_db
+    volumes:
+      - ./script:/docker-entrypoint-initdb.d
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"

@@ -1,0 +1,5 @@
+services:
+  web-app:
+    image: nginx:${NGINX_TAG:-latest}
+    ports:
+      - "80:80"
