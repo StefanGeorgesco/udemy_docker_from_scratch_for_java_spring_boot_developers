@@ -1,5 +1,6 @@
 package fr.stefangeorgesco.candidateservice.controller;
 
+import fr.stefangeorgesco.candidateservice.dto.CandidateDetailsDto;
 import fr.stefangeorgesco.candidateservice.dto.CandidateDto;
 import fr.stefangeorgesco.candidateservice.service.CandidateService;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class CandidateController {
     }
 
     @GetMapping("{id}")
-    public Mono<ResponseEntity<CandidateDto>> getById(@PathVariable String id) {
+    public Mono<ResponseEntity<CandidateDetailsDto>> getById(@PathVariable String id) {
         return service.getById(id)
                 .map(ResponseEntity::ok)
                 .onErrorReturn(ResponseEntity.notFound().build());
