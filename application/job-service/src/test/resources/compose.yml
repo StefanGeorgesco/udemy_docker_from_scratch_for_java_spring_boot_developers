@@ -1,0 +1,5 @@
+services:
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./script:/docker-entrypoint-initdb.d:ro
