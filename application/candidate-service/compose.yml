@@ -1,0 +1,19 @@
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./src/test/resources/script:/docker-entrypoint-initdb.d:ro
+  candidate-service:
+    build: .
+    image: candidate-service
+    ports:
+      - "8080:8080"
+    profiles:
+      - deploy
+    environment:
+      SPRING_MONGODB_URI: mongodb://candidate_user:candidate_password@mongo:27017/candidate
+    depends_on:
+      - mongo
+    restart: always
