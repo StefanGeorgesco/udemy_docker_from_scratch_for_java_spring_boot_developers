@@ -1,0 +1,86 @@
+<nav class="nav nav-pills nav-tabs nav-fill mt-5">
+  <a
+    class="nav-item nav-link"
+    [attr.aria-expanded]="showJobs()"
+    aria-controls="job-collapse candidate-collapse"
+    [class.active]="showJobs()"
+    (click)="showJobs.set(true)"
+  >
+    Jobs
+  </a>
+  <a
+    class="nav-item nav-link"
+    [class.active]="!showJobs()"
+    [attr.aria-expanded]="!showJobs()"
+    aria-controls="job-collapse candidate-collapse"
+    (click)="showJobs.set(false)"
+  >
+    Candidates
+  </a>
+</nav>
+
+@if (showJobs()) {
+  <!-- Jobs -->
+  <div>
+    <div class="card mt-3">
+      <div class="card-body">
+        <h1 class="display-4">Available Jobs</h1>
+        <table class="table table-striped mt-2">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Description</th>
+              <th scope="col">Company</th>
+              <th scope="col">Salary</th>
+              <th scope="col">Remote</th>
+              <th scope="col">Skills</th>
+              <th scope="col">Hostname</th>
+            </tr>
+          </thead>
+          <tbody id="job-list">
+            @for (job of jobs(); track job.id) {
+              <tr>
+                <th scope="row">{{ job.id }}</th>
+                <td>{{ job.description }}</td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.salary | currency }}</td>
+                <td>{{ job.isRemote ? 'Yes' : 'No' }}</td>
+                <td>{{ renderString(job.skills) }}</td>
+                <td>{{ job.hostName }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+} @else {
+  <!-- Candidates -->
+  <div>
+    <div class="card mt-3">
+      <div class="card-body">
+        <h1 class="display-4">Available Candidates</h1>
+        <table class="table table-striped mt-2">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Skills</th>
+              <th scope="col">Hostname</th>
+            </tr>
+          </thead>
+          <tbody id="candidate-list">
+            @for (candidate of candidates(); track candidate.id) {
+              <tr [routerLink]="['../', 'candidate', candidate.id]">
+                <th scope="row">{{ candidate.id }}</th>
+                <td>{{ candidate.name }}</td>
+                <td>{{ renderString(candidate.skills) }}</td>
+                <td>{{ candidate.hostName }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+}
