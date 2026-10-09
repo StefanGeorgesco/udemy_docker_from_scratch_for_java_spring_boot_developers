@@ -50,8 +50,8 @@ class JobServiceApplicationGenericTestContainerIT extends BaseTest {
                 "AWS",
                 Set.of("Docker", "Kubernetes", "AWS"),
                 120000,
-                true
-        );
+                true,
+                null);
 
         JobDto createdJob = client.post().uri("/job")
                 .bodyValue(newJob)
@@ -65,7 +65,7 @@ class JobServiceApplicationGenericTestContainerIT extends BaseTest {
         assertThat(createdJob.id()).isNotBlank();
         assertThat(createdJob)
                 .usingRecursiveComparison()
-                .ignoringFields("id")
+                .ignoringFields("id", "hostName")
                 .isEqualTo(newJob);
 
         long countAfterSave = countJobs();

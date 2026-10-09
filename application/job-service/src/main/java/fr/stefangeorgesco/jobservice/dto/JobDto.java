@@ -6,10 +6,16 @@ public record JobDto(String id,
                      String description,
                      String company, Set<String> skills,
                      Integer salary,
-                     Boolean isRemote) {
+                     Boolean isRemote,
+                     String hostName) {
 
-    public static JobDto of(String id, String description, String company, Set<String> skills, Integer salary,
-                            Boolean isRemote) {
-        return new JobDto(id, description, company, skills, salary, isRemote);
+    public static JobDto of(String id,
+                            String description,
+                            String company,
+                            Set<String> skills,
+                            Integer salary,
+                            Boolean isRemote,
+                            String hostName) {
+        return new JobDto(id, description, company, skills, salary, isRemote, hostName);
     }
 }
