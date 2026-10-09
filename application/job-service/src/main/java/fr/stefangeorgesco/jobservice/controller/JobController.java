@@ -11,6 +11,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("job")
+@CrossOrigin
 public class JobController {
 
     private final JobService service;
