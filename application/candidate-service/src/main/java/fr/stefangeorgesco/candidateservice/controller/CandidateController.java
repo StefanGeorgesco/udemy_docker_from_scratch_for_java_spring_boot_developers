@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("candidate")
+@CrossOrigin
 public class CandidateController {
 
     private final CandidateService service;
