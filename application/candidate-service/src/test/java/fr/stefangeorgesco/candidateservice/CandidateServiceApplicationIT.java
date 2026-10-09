@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.Objects;
@@ -14,11 +13,9 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-// @ServiceConnection points to the "test" database, the init script fills the "candidate" database
-@SpringBootTest(properties = "spring.mongodb.database=candidate")
+@SpringBootTest
 @AutoConfigureWebTestClient
-@Import(TestcontainersConfiguration.class)
-class CandidateServiceApplicationIT {
+class CandidateServiceApplicationIT extends BaseTest {
 
     @Autowired
     private WebTestClient client;
@@ -33,14 +30,46 @@ class CandidateServiceApplicationIT {
     }
 
     @Test
-    void getCandidateByIdTest() {
+    void getCandidateByIdJobServiceReturns200Test() {
         client.get().uri("/candidate/{id}", "1")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.id").isEqualTo("1")
                 .jsonPath("$.name").isEqualTo("John Doe")
-                .jsonPath("$.skills.size()").isEqualTo(3);
+                .jsonPath("$.skills.size()").isEqualTo(3)
+                .jsonPath("$.recommendedJobs.size()").isEqualTo(3);
+    }
+
+    @Test
+    void getCandidateByIdJobServiceReturns500Test() {
+        client.get().uri("/candidate/{id}", "2")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo("2")
+                .jsonPath("$.name").isEqualTo("Jane Smith")
+                .jsonPath("$.skills.size()").isEqualTo(3)
+                .jsonPath("$.recommendedJobs").isEmpty();
+    }
+
+    @Test
+    void getCandidateByIdJobServiceReturns400Test() {
+        client.get().uri("/candidate/{id}", "3")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo("3")
+                .jsonPath("$.name").isEqualTo("Alice Johnson")
+                .jsonPath("$.skills.size()").isEqualTo(2)
+                .jsonPath("$.recommendedJobs").isEmpty();
+    }
+
+    @Test
+    void getCandidateByIdNotFoundTest() {
+        client.get().uri("/candidate/{id}", "999")
+                .exchange()
+                .expectStatus().isNotFound();
     }
 
     @Test

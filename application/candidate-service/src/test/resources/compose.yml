@@ -3,3 +3,10 @@ services:
     image: mongo:latest
     volumes:
       - ./script:/docker-entrypoint-initdb.d:ro
+
+  job-service-mock:
+    image: mockserver/mockserver:latest
+    environment:
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/init.json
+    volumes:
+      - ./data/job-service.json:/config/init.json:ro

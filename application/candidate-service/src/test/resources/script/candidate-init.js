@@ -31,7 +31,7 @@ db.candidate.insertMany([
     {
         _id: '3',
         name: 'Alice Johnson',
-        skills: ['Java', 'Spring Boot', 'MySQL'],
+        skills: ['Java', 'Spring Boot'],
     },
     {
         _id: '4',
