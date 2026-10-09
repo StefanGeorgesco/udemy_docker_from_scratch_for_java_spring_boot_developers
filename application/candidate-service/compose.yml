@@ -7,13 +7,13 @@ services:
       - ./src/test/resources/script:/docker-entrypoint-initdb.d:ro
 
   job-service-mock:
-    image: mockserver/mockserver
+    image: mockserver/mockserver:latest
     ports:
       - "1080:1080"
     environment:
       MOCKSERVER_INITIALIZATION_JSON_PATH: /config/init.json
     volumes:
-      - ./src/test/resources/data/job-service.json:/config/init.json
+      - ./src/test/resources/data/job-service.json:/config/init.json:ro
 
   candidate-service:
     build: .
@@ -24,6 +24,7 @@ services:
       - deploy
     environment:
       SPRING_MONGODB_URI: mongodb://candidate_user:candidate_password@mongo:27017/candidate
+      JOB_SERVICE_URL: http://job-service-mock:1080/job
     depends_on:
       - mongo
     restart: always
