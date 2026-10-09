@@ -1,0 +1,85 @@
+[
+  {
+    "httpRequest": {
+      "path": "/health"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "body": "Up"
+    }
+  },
+  {
+    "httpRequest": {
+      "path": "/job/search",
+      "queryStringParameters": {
+        "skills": [
+          "JavaScript",
+          "Node.js",
+          "MongoDB"
+        ]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": [
+          "application/json"
+        ]
+      },
+      "body": [
+        {
+          "id": "mock-id-1",
+          "description": "mock description 1",
+          "company": "Mock Company 1",
+          "skills": [
+            "skill 1",
+            "JavaScript",
+            "skill 3"
+          ],
+          "salary": 130000,
+          "isRemote": false
+        },
+        {
+          "id": "mock-id-2",
+          "description": "mock description 2",
+          "company": "Mock Company 2",
+          "skills": [
+            "skill 1",
+            "Node.js",
+            "skill 3"
+          ],
+          "salary": 120000,
+          "isRemote": true
+        },
+        {
+          "id": "mock-id-3",
+          "description": "mock description 3",
+          "company": "Mock Company 3",
+          "skills": [
+            "skill 1",
+            "MongoDB",
+            "skill 3"
+          ],
+          "salary": 110000,
+          "isRemote": false
+        }
+      ]
+    }
+  },
+  {
+    "httpRequest": {
+      "path": "/job/search",
+      "queryStringParameters": {
+        "skills": [
+          "Python",
+          "Django",
+          "PostgreSQL"
+        ]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 500,
+      "body": "Internal Server Error"
+    }
+  }
+]
