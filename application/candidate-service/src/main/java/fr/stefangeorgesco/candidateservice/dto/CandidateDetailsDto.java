@@ -6,9 +6,14 @@ import java.util.List;
 public record CandidateDetailsDto(String id,
                                   String name,
                                   Set<String> skills,
-                                  List<JobDto> recommendedJobs) {
+                                  List<JobDto> recommendedJobs,
+                                  String hostName) {
 
-    public static CandidateDetailsDto of(String id, String name, Set<String> skills, List<JobDto> recommendedJobs) {
-        return new CandidateDetailsDto(id, name, skills, recommendedJobs);
+    public static CandidateDetailsDto of(String id,
+                                         String name,
+                                         Set<String> skills,
+                                         List<JobDto> recommendedJobs,
+                                         String hostName) {
+        return new CandidateDetailsDto(id, name, skills, recommendedJobs, hostName);
     }
 }

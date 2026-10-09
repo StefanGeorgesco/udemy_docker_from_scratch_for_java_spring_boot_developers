@@ -79,8 +79,8 @@ class CandidateServiceApplicationIT extends BaseTest {
         CandidateDto newCandidate = CandidateDto.of(
                 "5",
                 "New Candidate",
-                Set.of("Skill1", "Skill2")
-        );
+                Set.of("Skill1", "Skill2"),
+                null);
 
         CandidateDto createdCandidate = client.post().uri("/candidate")
                 .bodyValue(newCandidate)
@@ -94,6 +94,7 @@ class CandidateServiceApplicationIT extends BaseTest {
 		assertThat(createdCandidate.id()).isEqualTo("5");
         assertThat(createdCandidate)
                 .usingRecursiveComparison()
+                .ignoringFields("hostName")
                 .isEqualTo(newCandidate);
 
 		long countAfterSave = countCandidates();

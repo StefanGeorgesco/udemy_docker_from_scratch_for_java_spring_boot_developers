@@ -47,8 +47,9 @@ public class CandidateService {
         return jobClient.getRecommendedJobs(candidateDetailsDto.skills())
                 .map(recommendedJobs ->
                         new CandidateDetailsDto(candidateDetailsDto.id(),
-                                                candidateDetailsDto.name(),
-                                                candidateDetailsDto.skills(),
-                                                recommendedJobs));
+                                candidateDetailsDto.name(),
+                                candidateDetailsDto.skills(),
+                                recommendedJobs,
+                                candidateDetailsDto.hostName()));
     }
 }
