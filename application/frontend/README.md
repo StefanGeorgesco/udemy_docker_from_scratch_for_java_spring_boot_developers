@@ -36,6 +36,19 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Docker
+
+To build and run the frontend with Nginx on port `80`:
+
+```bash
+docker build -t frontend-nginx .
+docker run --rm -p 80:80 frontend-nginx
+```
+
+The Docker image uses a multi-stage build:
+- stage 1 compiles the Angular app (`ng build --configuration production`)
+- stage 2 serves the compiled files from Nginx on port `80`
+
 ## Running unit tests
 
 To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
