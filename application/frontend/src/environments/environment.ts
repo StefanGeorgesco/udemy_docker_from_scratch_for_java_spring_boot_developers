@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: `http://${window.location.hostname}:${window.location.port}/api`,
+  apiUrl: `http://${window.location.hostname}:${window.location.port}`,
 };
