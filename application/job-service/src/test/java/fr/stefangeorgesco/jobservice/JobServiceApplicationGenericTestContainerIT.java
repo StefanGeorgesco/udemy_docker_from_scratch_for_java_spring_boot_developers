@@ -21,6 +21,14 @@ class JobServiceApplicationGenericTestContainerIT extends BaseTest {
     private WebTestClient client;
 
     @Test
+    void healthTest() {
+        client.get().uri("/health")
+                .exchange()
+                .expectStatus().isPermanentRedirect()
+                .expectHeader().valueEquals("Location", "/actuator/health");
+    }
+
+    @Test
     void allJobsTest() {
         client.get().uri("/job/all")
                 .exchange()
