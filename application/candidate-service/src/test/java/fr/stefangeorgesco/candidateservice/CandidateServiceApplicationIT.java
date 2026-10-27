@@ -21,6 +21,14 @@ class CandidateServiceApplicationIT extends BaseTest {
     private WebTestClient client;
 
     @Test
+    void healthTest() {
+        client.get().uri("/health")
+                .exchange()
+                .expectStatus().isPermanentRedirect()
+                .expectHeader().valueEquals("Location", "/actuator/health");
+    }
+
+    @Test
     void allCandidatesTest() {
         client.get().uri("/candidate/all")
                 .exchange()
